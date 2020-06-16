@@ -81,6 +81,12 @@ namespace VMPrint
                 // Only set absolute minimum parameters, let the postscript input
                 // dictate as much as possible
                 tempPdfFilename = Path.GetTempFileName();
+
+                // TODO: remove this.
+                MessageBox.Show(standardInputFilename, tempPdfFilename,
+                                 MessageBoxButtons.YesNo,
+                                 MessageBoxIcon.Question);
+
                 String[] ghostScriptArguments = { "-q", "-dBATCH", "-dNOPAUSE", "-dSAFER",  "-sDEVICE=pdfwrite",
                                                 String.Format("-sOutputFile={0}", tempPdfFilename), standardInputFilename };
                 GhostScript64.CallAPI(ghostScriptArguments); // TODO: remove this ones
@@ -141,7 +147,7 @@ namespace VMPrint
             {
                 // We couldn't delete, or create a file
                 // because it was in use
-                logEventSource.TraceEvent(TraceEventType.Error, 
+                logEventSource.TraceEvent(TraceEventType.Error,
                                           (int)TraceEventType.Error,
                                           Properties.Resources.ERROR_COULD_NOT_WRITE +
                                           Environment.NewLine +
@@ -156,7 +162,7 @@ namespace VMPrint
                 // because it was set to readonly
                 // or couldn't create a file
                 // because of permissions issues
-                logEventSource.TraceEvent(TraceEventType.Error, 
+                logEventSource.TraceEvent(TraceEventType.Error,
                                           (int)TraceEventType.Error,
                                           Properties.Resources.ERROR_COULD_NOT_WRITE +
                                           Environment.NewLine +
@@ -170,8 +176,8 @@ namespace VMPrint
             catch (ExternalException ghostscriptEx) // TODO: replace GhostScript error handling
             {
                 // Ghostscript error
-                logEventSource.TraceEvent(TraceEventType.Error, 
-                                          (int)TraceEventType.Error, 
+                logEventSource.TraceEvent(TraceEventType.Error,
+                                          (int)TraceEventType.Error,
                                           String.Format(Properties.Resources.ERROR_GHOSTSCRIPT_CONVERSION, ghostscriptEx.ErrorCode.ToString()) +
                                           Environment.NewLine +
                                           Properties.Resources.EXCEPTION_MESSAGE_PREFIX + ghostscriptEx.Message);
@@ -189,7 +195,7 @@ namespace VMPrint
                 {
                     File.Delete(standardInputFilename);
                 }
-                catch 
+                catch
                 {
                     logEventSource.TraceEvent(TraceEventType.Warning,
                                               (int)TraceEventType.Warning,
@@ -350,7 +356,7 @@ namespace VMPrint
                             MessageBoxIcon.Error,
                             MessageBoxDefaultButton.Button1,
                             MessageBoxOptions.DefaultDesktopOnly);
-            
+
         }
 
         /// <summary>
