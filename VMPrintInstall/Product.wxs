@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"  xmlns:netfx ="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Product Id="{333EF3AA-64D8-4C9F-B67A-61CCA6C4DD80}" Name="VM Print" Language="1033" Version="0.1" Manufacturer="Frank fan" UpgradeCode="9C9DBC59-0034-440B-A5E5-240BD30136CD">
+		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" 
+             Platform="x64"
+             InstallPrivileges="elevated" 
+             Description="VM Print"
+             Comments="VM Print 0.1 installation package"
+             Id="*" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                  Schedule="afterInstallValidate"
+                  AllowDowngrades="no" AllowSameVersionUpgrades="no"/>
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Icon Id="pdf.ico" SourceFile="..\Common\pdf.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="pdf.ico" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Settings" />
+    
+    <Feature Id="ProductFeature" Title="VMPrint" Level="1">
+			<ComponentGroupRef Id="ProductComponents"  />
+      <ComponentRef Id="ApplicationShortcutDesktop"  />
+    </Feature>
+
+
+    <!-- .Net 4.5 Prerequisite -->
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    <Condition Message="This application requires .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+    <Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+    <!-- OS version prerequisite -->
+    <Condition Message="64-bit Windows Vista SP2, Server 2008 SP2, or later are required."><![CDATA[Installed OR ((VersionNT >= 600 AND ServicePackLevel >= 2 AND VersionNT64)
+                                                                                                              OR (VersionNT >= 601 AND VersionNT64))]]></Condition>    
+    <!-- Check if the user has administrator privileges -->
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+
+    <!-- Custom Actions -->
+    <Binary Id="VMPrintInstallCustomAction.CA.dll" SourceFile="$(var.VMPrintInstallCustomAction.TargetDir)$(var.VMPrintInstallCustomAction.TargetName).CA.dll" />
+    <CustomAction Id="SetCustomActionDataValues"
+                  Return="check"
+                  Property="InstallPrinter"
+                  Value="DriverSourceDirectory=[INSTALLFOLDER];OutputCommand=[INSTALLFOLDER]VMPrint.exe;OutputCommandArguments=" />
+                  
+    <CustomAction Id="InstallPrinter"
+                  Return="check"
+                  Execute="deferred"
+                  BinaryKey="VMPrintInstallCustomAction.CA.dll"
+                  DllEntry="InstallVMPrintPrinter" Impersonate="no"   />
+    
+    <CustomAction Id="UninstallPrinter"
+                  Return="ignore"
+                  Execute="deferred"
+                  BinaryKey="VMPrintInstallCustomAction.CA.dll"
+                  DllEntry="UninstallVMPrintPrinter" Impersonate="no" />
+
+    <InstallExecuteSequence>
+      <Custom Action="SetCustomActionDataValues" After="InstallFiles" >NOT Installed</Custom>
+      <Custom Action="InstallPrinter" After="SetCustomActionDataValues"  >NOT Installed</Custom>
+      <Custom Action="UninstallPrinter" Before="RemoveFiles" >(Installed) OR (UPGRADINGPRODUCTCODE) OR (REMOVE)</Custom>
+    </InstallExecuteSequence>
+
+    <Property Id="WixShellExecTarget" Value="[#VMPrintExe]" />
+    <CustomAction Id="LaunchSettings" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <UI>
+      <Publish Dialog="ExitDialog"
+      Control="Finish"
+      Event="DoAction" Value="LaunchSettings">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+
+    <!-- Use the UI that allows an install directory to be chosen-->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\Common\license.rtf" />
+    <UIRef Id="WixUI_InstallDir" />
+  </Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="VMPrint" />
+			</Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+	</Fragment>
+  
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="VMPrintBase" Guid="{E59A19C6-4C01-471A-A08F-132F0B1BE251}">
+        <File Id="VMPrintExe" Source="$(var.VMPrint.TargetPath)" KeyPath="yes" >
+          <netfx:NativeImage Id="$(var.VMPrint.TargetFileName)" Platform="64bit" Priority="1"   />
+        </File>
+      </Component>
+      <Component Id="VMPrintExePdb" Guid="{9B4485BA-B410-4FAB-B001-A00646553D87}">
+        <File Source="$(var.VMPrint.TargetDir)$(var.VMPrint.TargetName).pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="VMPrintExeConfig" Guid="{7505ED10-EDE5-4627-9C40-6F19E5927395}">
+        <File Source="$(var.VMPrint.TargetDir)$(var.VMPrint.TargetFileName).config" KeyPath="yes" />
+      </Component>
+      <Component Id="VMPrintCoreDll" Guid="{1C3466BC-7CE0-4113-9B82-22122CEDFD79}">
+        <File Source="$(var.VMPrintCore.TargetPath)" KeyPath="yes"  >
+          <netfx:NativeImage Id="$(var.VMPrintCore.TargetFileName)" Platform="64bit" Priority="1"   />
+        </File>
+      </Component>
+      <Component Id="VMPrintCoreDllPdb" Guid="{B27F2C9D-0BB8-4EF3-9B4B-D1FB59889006}">
+        <File Source="$(var.VMPrintCore.TargetDir)$(var.VMPrintCore.TargetName).pdb" KeyPath="yes" />
+      </Component>
+      <!-- Third party components -->
+      <Component Id="gsdll64dll" Guid="{34E30C39-B245-4C3A-8F31-E0F08488720E}">
+        <File Source="..\Lib\gsdll64.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="redmon64vmprintdll" Guid="{DBF6968A-A223-425F-B14C-E35A8BDC3C5C}">
+        <File Source="..\Lib\redmon64vmprint.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="PS5UIDLL" Guid="{78CB5B07-C04A-43DF-BDC1-B250D7E1B657}">
+        <File Source="..\Lib\PS5UI.DLL" KeyPath="yes" />
+      </Component>
+      <Component Id="PSCRIPTHLP" Guid="{A9FF9E8D-5810-452D-A4AC-CF16023AD85B}">
+        <File Source="..\Lib\PSCRIPT.HLP" KeyPath="yes" />
+      </Component>
+      <Component Id="PSCRIPTNTF" Guid="{101DDCF1-D6D8-49DD-86C9-64AFEE45AE50}">
+        <File Source="..\Lib\PSCRIPT.NTF" KeyPath="yes" />
+      </Component>
+      <Component Id="PSCRIPT5DLL" Guid="{1258C9F0-C105-4D1E-91C4-5D2F47EB0CB3}">
+        <File Source="..\Lib\PSCRIPT5.DLL" KeyPath="yes" />
+      </Component>
+      <Component Id="SCPDFPRNppd" Guid="{0B916245-EDD0-4346-9ED2-A850C56E66E6}">
+        <File Source="..\Lib\SCPDFPRN.ppd" KeyPath="yes" />
+      </Component>
+      <Component Id="PDFTOTEXTEXE" Guid="{043C0616-7CE9-4086-A383-618EB809EDF9}">
+        <File Source="..\Lib\pdftotext.exe" KeyPath="yes" />
+      </Component>
+      <!-- </Component> -->
+		</ComponentGroup>
+
+    <Component Id="ApplicationShortcutDesktop" Directory="DesktopFolder" Guid="4394E692-DC3A-414C-A371-96A5D2FA6AF6">
+      <Shortcut Id="ApplicationDesktopShortcut"
+          Name="VM Print Setting"
+          Description="VM Print Setting"
+          Target="[INSTALLFOLDER]VMPrint.exe"
+          WorkingDirectory="INSTALLFOLDER"/>
+      <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+      <RegistryValue
+          Root="HKCU"
+          Key="Software/VMPrint"
+          Name="installed"
+          Type="integer"
+          Value="1"
+          KeyPath="yes"/>
+    </Component>
+	</Fragment>
+</Wix>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DRIVER_MANUFACTURER" xml:space="preserve">
+    <value>Frank Fan</value>
+  </data>
+  <data name="DRIVER_NAME" xml:space="preserve">
+    <value>VM Print Virtual Printer</value>
+  </data>
+  <data name="DRV_ALREADYEXISTS" xml:space="preserve">
+    <value>Printer drivers copied or already exist.</value>
+  </data>
+  <data name="DRV_DIR_NOT_RETRIEVE" xml:space="preserve">
+    <value>Could not retrieve printer driver directory.</value>
+  </data>
+  <data name="DRV_INSTALLED" xml:space="preserve">
+    <value>Printer driver installed.</value>
+  </data>
+  <data name="DRV_NOT_ENUMERATE" xml:space="preserve">
+    <value>Could not enumerate printer drivers.</value>
+  </data>
+  <data name="ENUMDRV_ZERO_SIZE_BUFFER" xml:space="preserve">
+    <value>Call to EnumPrinterDrivers in winspool.drv succeeded with a zero size buffer - unexpected error.</value>
+  </data>
+  <data name="ENUMMONITOR_ZERO_SIZE_BUFFER" xml:space="preserve">
+    <value>Call to EnumMonitors in winspool.drv succeeded with a zero size buffer - unexpected error.</value>
+  </data>
+  <data name="FILENOTCOPIED_ALREADYEXISTS" xml:space="preserve">
+    <value>Destination file {0} was not copied/created - it already exists.</value>
+  </data>
+  <data name="FILENOTCOPIED_PRINTERDRIVER" xml:space="preserve">
+    <value>Printer driver file was not copied. Exception message: {0}</value>
+  </data>
+  <data name="FILENOTDELETED_INUSE" xml:space="preserve">
+    <value>{0} is being used by another process. File was not deleted.</value>
+  </data>
+  <data name="FILENOTDELETED_UNAUTHORIZED" xml:space="preserve">
+    <value>{0} is read-only, or its file permissions do not allow for deletion.</value>
+  </data>
+  <data name="HARDWARE_ID" xml:space="preserve">
+    <value>VMPrint_Driver0101</value>
+  </data>
+  <data name="INFO_INSTALLCONFIGPORT_FAILED" xml:space="preserve">
+    <value>Port configuration failed.</value>
+  </data>
+  <data name="INFO_INSTALLCOPYDRIVER_FAILED" xml:space="preserve">
+    <value>Could not copy printer driver files.</value>
+  </data>
+  <data name="INFO_INSTALLPORTMONITOR_FAILED" xml:space="preserve">
+    <value>Port monitor installation failed.</value>
+  </data>
+  <data name="INFO_INSTALLPORT_FAILED" xml:space="preserve">
+    <value>Could not add redirected port.</value>
+  </data>
+  <data name="INFO_INSTALLPRINTERDRIVER_FAILED" xml:space="preserve">
+    <value>Printer driver installation failed.</value>
+  </data>
+  <data name="INFO_INSTALLPRINTER_FAILED" xml:space="preserve">
+    <value>Could not add printer.</value>
+  </data>
+  <data name="INSTALL_ROLLBACK_FAILURE_AT_FUNCTION" xml:space="preserve">
+    <value>Partial uninstallation failure. Function {0} returned false.</value>
+  </data>
+  <data name="MONITOR_INSTALLED" xml:space="preserve">
+    <value>Port monitor successfully installed.</value>
+  </data>
+  <data name="MONITOR_NOT_ENUMERATE" xml:space="preserve">
+    <value>Could not enumerate port monitors.</value>
+  </data>
+  <data name="MONITOR_NOT_REMOVE" xml:space="preserve">
+    <value>Could not remove port monitor dll.</value>
+  </data>
+  <data name="NATIVE_COULDNOTENABLE64REDIRECTION" xml:space="preserve">
+    <value>Could not enable 64-bit file system redirection.</value>
+  </data>
+  <data name="NATIVE_COULDNOTREVERT64REDIRECTION" xml:space="preserve">
+    <value>Could not revert 64-bit file system redirection.</value>
+  </data>
+  <data name="PORT_ADDED" xml:space="preserve">
+    <value>Redirection port added.</value>
+  </data>
+  <data name="PORT_ALREADY_INSTALLED" xml:space="preserve">
+    <value>Port monitor {0} already installed.</value>
+  </data>
+  <data name="PORT_DESCRIPTION" xml:space="preserve">
+    <value>Local Port</value>
+  </data>
+  <data name="PORT_NOT_ADDED" xml:space="preserve">
+    <value>Could not add port monitor {0}</value>
+  </data>
+  <data name="PRINTER_NAME" xml:space="preserve">
+    <value>VM Print</value>
+  </data>
+  <data name="PRINT_PROCESOR" xml:space="preserve">
+    <value>winprint</value>
+  </data>
+  <data name="REGISTRYCONFIG_NOT_ADDED" xml:space="preserve">
+    <value>Could not add port configuration to registry. Exception message: {0}</value>
+  </data>
+  <data name="REGISTRYCONFIG_NOT_DELETED" xml:space="preserve">
+    <value>Could not delete port configuration from registry. Exception message: {0}</value>
+  </data>
+  <data name="VM_DRV_NOT_ADDED" xml:space="preserve">
+    <value>Could not add VM printer driver.</value>
+  </data>
+  <data name="VM_DRV_NOT_REMOVE" xml:space="preserve">
+    <value>Could not remove VM Print printer driver.</value>
+  </data>
+  <data name="VM_NOT_ADDED" xml:space="preserve">
+    <value>Could not add VM printer.</value>
+  </data>
+  <data name="VM_NOT_DELETE" xml:space="preserve">
+    <value>Could not delete VM virtual printer.</value>
+  </data>
+  <data name="VM_PRINT_CONFIGURED" xml:space="preserve">
+    <value>Printer configured.</value>
+  </data>
+  <data name="VM_PRINT_INSTALLED" xml:space="preserve">
+    <value>Virtual printer installed.</value>
+  </data>
+  <data name="WIN32ERROR" xml:space="preserve">
+    <value>Win32 error code {0}.</value>
+  </data>
+  <data name="WOW64_NOT_DISABLE" xml:space="preserve">
+    <value>Could not disable Wow64 file system redirection.</value>
+  </data>
+  <data name="WOW64_NOT_REENABLE" xml:space="preserve">
+    <value>Could not reenable Wow64 file system redirection.</value>
+  </data>
+</root>

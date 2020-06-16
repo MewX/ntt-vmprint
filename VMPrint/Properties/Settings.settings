@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VMPrint.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OutputDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%UserProfile%\VM Print\</Value>
+    </Setting>
+    <Setting Name="BranchNo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0001</Value>
+    </Setting>
+    <Setting Name="MachineNo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AAA</Value>
+    </Setting>
+    <Setting Name="SerialNo" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="OpenAfterPrint" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RealPrinterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Microsoft Print to PDF</Value>
+    </Setting>
+    <Setting Name="Style" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D100310</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
