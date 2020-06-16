@@ -48,6 +48,7 @@ namespace VMPrint
         https://github.com/mephraim/ghostscriptsharp
         */
 
+        // TODO: replacing this
         #region Hooks into Ghostscript DLL
         [DllImport("gsdll64.dll", EntryPoint = "gsapi_new_instance")]
         internal static extern int CreateAPIInstance(out IntPtr pinstance, IntPtr caller_handle);

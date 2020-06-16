@@ -33,14 +33,10 @@
 /* ＜ソース修正者名＞                                                       */
 /* ＜ソース修正年月日及び修正ＩＤ＞                                         */
 /*--------------------------------------------------------------------------*/
+using Microsoft.Deployment.WindowsInstaller;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-
-using Microsoft.Deployment.WindowsInstaller;
 
 namespace VMPrintInstallCustomAction
 {

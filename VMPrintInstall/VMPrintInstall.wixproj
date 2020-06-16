@@ -90,11 +90,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <PropertyGroup>
-    <WixToolPath>$(SolutionDir)packages\WiX.Toolset.UnofficialFork.3.11.2\tools\wix\</WixToolPath>
-    <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
-    <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
-  </PropertyGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -83,7 +83,7 @@ namespace VMPrint
                 tempPdfFilename = Path.GetTempFileName();
                 String[] ghostScriptArguments = { "-q", "-dBATCH", "-dNOPAUSE", "-dSAFER",  "-sDEVICE=pdfwrite",
                                                 String.Format("-sOutputFile={0}", tempPdfFilename), standardInputFilename };
-                GhostScript64.CallAPI(ghostScriptArguments);
+                GhostScript64.CallAPI(ghostScriptArguments); // TODO: remove this ones
 
                 //通常ﾌﾟﾘﾝﾀｰと検索文字列が設定ありの場合、印刷対象のドキュメントを検索し、検索文字列が含まない場合、通常ﾌﾟﾘﾝﾀｰで印刷する。
                 if (String.IsNullOrEmpty(Properties.Settings.Default.RealPrinterName) == false &&
@@ -119,7 +119,7 @@ namespace VMPrint
                     {
                         String[] printArguments = { "-q", "-dPrinted", "-dBATCH", "-dNOPAUSE", "-dNOSAFER", "-sDEVICE=mswinpr2", "-dNumCopies=1",
                                                  "-sOutputFile=%printer%" + Properties.Settings.Default.RealPrinterName, standardInputFilename };
-                        GhostScript64.CallAPI(printArguments);
+                        GhostScript64.CallAPI(printArguments); // TODO: remove this
                     }
                 }
 
@@ -167,7 +167,7 @@ namespace VMPrint
 
 
             }
-            catch (ExternalException ghostscriptEx)
+            catch (ExternalException ghostscriptEx) // TODO: replace GhostScript error handling
             {
                 // Ghostscript error
                 logEventSource.TraceEvent(TraceEventType.Error, 
