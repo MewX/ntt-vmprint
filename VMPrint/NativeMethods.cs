@@ -33,6 +33,7 @@
 /* ＜ソース修正者名＞                                                       */
 /* ＜ソース修正年月日及び修正ＩＤ＞                                         */
 /*--------------------------------------------------------------------------*/
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -62,6 +63,13 @@ namespace VMPrint
         [DllImport("gsdll64.dll", EntryPoint = "gsapi_delete_instance")]
         internal static extern void DeleteAPIInstance(IntPtr instance);
         #endregion
+
+        //#region Hooks into XPSPrint DLL
+        //[DllImport("XpsPrint.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        //public static extern int StartXpsPrintJob(string printerName, string jobName, string outputFileName, IntPtr progressEvent,
+        //    SafeWaitHandle completionEvent, [MarshalAs(UnmanagedType.LPArray)] byte[] printablePagesOn, int printablePagesOnCount,
+        //    out IXpsPrintJob xpsPrintJob, out IXpsPrintJobStream documentStream, out IXpsPrintJobStream printTicketStream);
+        //#endregion
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern bool SetDllDirectory(string lpPathName);
