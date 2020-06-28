@@ -177,6 +177,24 @@
       <Component Id="xdwscRGBicc" Guid="{100546eb-1f3c-4493-873d-81897fc7e8fe}">
         <File Source="..\Lib\xdwscRGB.icc" KeyPath="yes" />
       </Component>
+      <Component Id="xdbookdll" Guid="{e2bbc8c5-d45a-4260-899a-4147264da043}">
+        <File Source="..\Lib\xdbook.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="XDColMandll" Guid="{ffcb10c7-a697-4390-82fe-902675f7bbbc}">
+        <File Source="..\Lib\XDColMan.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdnupdll" Guid="{87539b32-7879-4048-afc2-78da7937a73b}">
+        <File Source="..\Lib\xdnup.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdscaledll" Guid="{79514ce3-595f-499a-9778-c6cfbf35ca55}">
+        <File Source="..\Lib\xdscale.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmpluidll" Guid="{482bbb8e-676d-4cb6-8785-5da33b8140c5}">
+        <File Source="..\Lib\xdsmplui.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdwmarkdll" Guid="{ebc211f2-16f5-4afd-8b52-d9b9287d9371}">
+        <File Source="..\Lib\xdwmark.dll" KeyPath="yes" />
+      </Component>
 		</ComponentGroup>
 
     <Component Id="ApplicationShortcutDesktop" Directory="DesktopFolder" Guid="4394E692-DC3A-414C-A371-96A5D2FA6AF6">

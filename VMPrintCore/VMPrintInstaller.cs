@@ -73,10 +73,10 @@ namespace VMPrintCore
         const string MONITORDLL = "redmon64vmprint.dll";
         const string PORTMONITOR = "VMPRINT";
         const string PORTNAME = "VMPrintPort:";
-        const string DRIVERFILE = "UNIDRV.DLL";
+        const string DRIVERFILE = "MXDWDRV.DLL"; // "UNIDRV.DLL";
         const string DRIVERUIFILE = "UNIDRVUI.DLL";
         const string DRIVERHELPFILE = "UNIDRV.HLP";
-        const string DRIVERDATAFILE = "MSXPSINC.PPD"; // "xdsmpl.gpd";
+        const string DRIVERDATAFILE = "xdsmpl.gpd";
         
         enum DriverFileIndex
         {
@@ -90,8 +90,8 @@ namespace VMPrintCore
 
         readonly String[] printerDriverFiles = new String[] { DRIVERFILE, DRIVERUIFILE, DRIVERHELPFILE, DRIVERDATAFILE };
         readonly String[] printerDriverDependentFiles = new String[] {
-            "ntprint.inf",
-            //"UNIDRV.DLL*",
+            //"ntprint.inf",
+            //"UNIDRV.DLL",
             //"UNIDRV.HLP",
             //"UNIDRVUI.DLL",
             "UNIRES.DLL",
@@ -107,6 +107,12 @@ namespace VMPrintCore
             "xdsmpl-PipelineConfig.xml",
             "xdwmark.gpd",
             "xdwscRGB.icc",
+            "xdbook.dll",
+            "XDColMan.dll",
+            "xdnup.dll",
+            "xdscale.dll",
+            "xdsmplui.dll",
+            "xdwmark.dll",
         }; // "PSCRIPT.NTF" }; // TODO: update this
 
         #region Error messages for Trace/Debug
@@ -921,7 +927,7 @@ namespace VMPrintCore
             vmPrintPrinter.pPrinterName = Properties.Resources.PRINTER_NAME;
             vmPrintPrinter.pPortName = PORTNAME;
             vmPrintPrinter.pDriverName = Properties.Resources.DRIVER_NAME;
-            vmPrintPrinter.pPrintProcessor = Properties.Resources.PRINT_PROCESOR;
+            //vmPrintPrinter.pPrintProcessor = Properties.Resources.PRINT_PROCESOR;
             vmPrintPrinter.pDatatype = "RAW";
             vmPrintPrinter.Attributes = 0x00000040;
             //vmPrintPrinter.Attributes = 0x00000002;
