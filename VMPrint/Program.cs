@@ -36,7 +36,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace VMPrint
@@ -56,12 +55,17 @@ namespace VMPrint
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(Application_UnhandledException);
 
             String standardInputFilename = Path.GetTempFileName();
-            String tempPdfFilename = String.Empty;
-            String pdfTextFilename = String.Empty;
             String outputFilename = String.Empty;
-            Boolean needPrint = false;
             try
             {
+                if (!GetPdfOutputFilename(ref outputFilename))
+                {
+                    // TODO: remove me
+                    MessageBox.Show("Unknown error when getting PDF output file name.", "Error",
+                                     MessageBoxButtons.YesNo,
+                                     MessageBoxIcon.Question);
+                }
+
                 using (BinaryReader standardInputReader = new BinaryReader(Console.OpenStandardInput()))
                 {
                     using (FileStream standardInputFile = new FileStream(standardInputFilename, FileMode.Create, FileAccess.ReadWrite))
@@ -80,68 +84,10 @@ namespace VMPrint
 
                 // Only set absolute minimum parameters, let the postscript input
                 // dictate as much as possible
-                tempPdfFilename = Path.GetTempFileName();
+                XpsPdfPrinter.ConvertXpsToBitmapToPdf(standardInputFilename, outputFilename);
 
-                // TODO: remove this.
-                MessageBox.Show(standardInputFilename, tempPdfFilename,
-                                 MessageBoxButtons.YesNo,
-                                 MessageBoxIcon.Question);
-
-                String[] ghostScriptArguments = { "-q", "-dBATCH", "-dNOPAUSE", "-dSAFER",  "-sDEVICE=pdfwrite",
-                                                String.Format("-sOutputFile={0}", tempPdfFilename), standardInputFilename };
-                GhostScript64.CallAPI(ghostScriptArguments); // TODO: remove this ones
-
-                //通常ﾌﾟﾘﾝﾀｰと検索文字列が設定ありの場合、印刷対象のドキュメントを検索し、検索文字列が含まない場合、通常ﾌﾟﾘﾝﾀｰで印刷する。
-                if (String.IsNullOrEmpty(Properties.Settings.Default.RealPrinterName) == false &&
-                        String.IsNullOrEmpty(Properties.Settings.Default.Style) == false)
-                {
-                    string[] keywords = Properties.Settings.Default.Style.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                    pdfTextFilename = Path.GetTempFileName();
-                    Pdf2Text(tempPdfFilename, pdfTextFilename);
-                    needPrint = true;
-
-                    using (StreamReader pdfTextStreamReader = new StreamReader(pdfTextFilename))
-                    {
-                        while (pdfTextStreamReader.EndOfStream == false)
-                        {
-                            string textLine = pdfTextStreamReader.ReadLine();
-                            for (int i = 0; i < keywords.Length; i++)
-                            {
-                                if (String.IsNullOrEmpty(keywords[i]) == false && textLine.Contains(keywords[i]) == true)
-                                {
-                                    needPrint = false;
-                                    break;
-                                }
-                            }
-                            if (needPrint == false)
-                            {
-                                break;
-                            }
-                        }
-                    }
-
-                    //通常ﾌﾟﾘﾝﾀｰで印刷すると判明する場合、通常ﾌﾟﾘﾝﾀｰで印刷を実施する。
-                    if (needPrint == true)
-                    {
-                        String[] printArguments = { "-q", "-dPrinted", "-dBATCH", "-dNOPAUSE", "-dNOSAFER", "-sDEVICE=mswinpr2", "-dNumCopies=1",
-                                                 "-sOutputFile=%printer%" + Properties.Settings.Default.RealPrinterName, standardInputFilename };
-                        GhostScript64.CallAPI(printArguments); // TODO: remove this
-                    }
-                }
-
-                //PDFに出力すると判明する場合、PDFファイルを作成する。
-                if (needPrint == false)
-                {
-                    if (GetPdfOutputFilename(ref outputFilename))
-                    {
-                        // Remove the existing PDF file if present
-                        File.Delete(outputFilename);
-                        //Copy file
-                        System.IO.File.Copy(tempPdfFilename, outputFilename, true);
-                        //Open pdf
-                        DisplayPdf(outputFilename);
-                    }
-                }
+                // Display PDF file.
+                DisplayPdf(outputFilename);
             }
             catch (IOException ioEx)
             {
@@ -170,24 +116,6 @@ namespace VMPrint
                 DisplayErrorMessage(Properties.Resources.ERROR_DIALOG_CAPTION,
                                     Properties.Resources.ERROR_COULD_NOT_WRITE + Environment.NewLine +
                                     String.Format(Properties.Resources.ERROR_INSUFFICIENT_PRIVILEGES, outputFilename));
-
-
-            }
-            catch (ExternalException ghostscriptEx) // TODO: replace GhostScript error handling
-            {
-                // Ghostscript error
-                logEventSource.TraceEvent(TraceEventType.Error,
-                                          (int)TraceEventType.Error,
-                                          String.Format(Properties.Resources.ERROR_GHOSTSCRIPT_CONVERSION, ghostscriptEx.ErrorCode.ToString()) +
-                                          Environment.NewLine +
-                                          Properties.Resources.EXCEPTION_MESSAGE_PREFIX + ghostscriptEx.Message);
-                //If transferred to another virtual printer and cancelled, -100 error will occur
-                if (ghostscriptEx.ErrorCode != -100)
-                {
-                    DisplayErrorMessage(Properties.Resources.ERROR_DIALOG_CAPTION,
-                                    Properties.Resources.ERROR_PDF_GENERATION + Environment.NewLine +
-                                    String.Format(Properties.Resources.ERROR_GHOSTSCRIPT_CONVERSION, ghostscriptEx.ErrorCode.ToString()));
-                }
             }
             finally
             {
@@ -202,36 +130,7 @@ namespace VMPrint
                                               String.Format(Properties.Resources.WARN_FILE_NOT_DELETED, standardInputFilename));
                 }
 
-                try
-                {
-                    //一時PDF存在する場合、削除する
-                    if (tempPdfFilename != String.Empty)
-                    {
-                        File.Delete(tempPdfFilename);
-                    }
-                }
-                catch
-                {
-                    logEventSource.TraceEvent(TraceEventType.Warning,
-                                              (int)TraceEventType.Warning,
-                                              String.Format(Properties.Resources.WARN_FILE_NOT_DELETED, tempPdfFilename));
-                }
-
-                try
-                {
-                    //一時PDFのTEXTファイル存在する場合、削除する
-                    if (pdfTextFilename != String.Empty)
-                    {
-                        File.Delete(pdfTextFilename);
-                    }
-                }
-                catch
-                {
-                    logEventSource.TraceEvent(TraceEventType.Warning,
-                                              (int)TraceEventType.Warning,
-                                              String.Format(Properties.Resources.WARN_FILE_NOT_DELETED, pdfTextFilename));
-                }
-
+                // More temp files to clean up.
                 logEventSource.Flush();
             }
         }
@@ -357,29 +256,6 @@ namespace VMPrint
                             MessageBoxDefaultButton.Button1,
                             MessageBoxOptions.DefaultDesktopOnly);
 
-        }
-
-        /// <summary>
-        /// Converts PDF to text file
-        /// </summary>
-        /// <param name="pdfFilename">Pdf file path</param>
-        /// <param name="textFilename">Text file path</param>
-        static void Pdf2Text(String pdfFilename,
-                             String textFilename)
-        {
-            using (Process pdfToTextProcess = new Process())
-            {
-                pdfToTextProcess.StartInfo.FileName = "PDFTOTEXT.EXE";
-                pdfToTextProcess.StartInfo.WorkingDirectory = Application.StartupPath;
-                pdfToTextProcess.StartInfo.Arguments = " -enc UTF-8 " + pdfFilename + " " + textFilename;
-                pdfToTextProcess.StartInfo.UseShellExecute = false;
-                pdfToTextProcess.StartInfo.RedirectStandardInput = true;
-                pdfToTextProcess.StartInfo.RedirectStandardOutput = true;
-                pdfToTextProcess.StartInfo.RedirectStandardError = true;
-                pdfToTextProcess.StartInfo.CreateNoWindow = true;
-                pdfToTextProcess.Start();
-                pdfToTextProcess.WaitForExit();
-            }
         }
     }
 }

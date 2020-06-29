@@ -73,10 +73,10 @@ namespace VMPrintCore
         const string MONITORDLL = "redmon64vmprint.dll";
         const string PORTMONITOR = "VMPRINT";
         const string PORTNAME = "VMPrintPort:";
-        const string DRIVERFILE = "PSCRIPT5.DLL";
-        const string DRIVERUIFILE = "PS5UI.DLL";
-        const string DRIVERHELPFILE = "PSCRIPT.HLP";
-        const string DRIVERDATAFILE = "SCPDFPRN.PPD";
+        const string DRIVERFILE = "MXDWDRV.DLL"; // "UNIDRV.DLL";
+        const string DRIVERUIFILE = "UNIDRVUI.DLL";
+        const string DRIVERHELPFILE = "UNIDRV.HLP";
+        const string DRIVERDATAFILE = "xdsmpl.gpd";
         
         enum DriverFileIndex
         {
@@ -89,7 +89,31 @@ namespace VMPrintCore
         };
 
         readonly String[] printerDriverFiles = new String[] { DRIVERFILE, DRIVERUIFILE, DRIVERHELPFILE, DRIVERDATAFILE };
-        readonly String[] printerDriverDependentFiles = new String[] { "PSCRIPT.NTF" };
+        readonly String[] printerDriverDependentFiles = new String[] {
+            //"ntprint.inf",
+            //"UNIDRV.DLL",
+            //"UNIDRV.HLP",
+            //"UNIDRVUI.DLL",
+            "UNIRES.DLL",
+            "xdbook.gpd",
+            "xdCMYKPrinter.icc",
+            "xdcolman.gpd",
+            "xdnames.gpd",
+            "xdnup.gpd",
+            "xdpgscl.gpd",
+            "xdsmpl.gpd",
+            "xdsmpl.inf",
+            "xdsmpl.ini",
+            "xdsmpl-PipelineConfig.xml",
+            "xdwmark.gpd",
+            "xdwscRGB.icc",
+            "xdbook.dll",
+            "XDColMan.dll",
+            "xdnup.dll",
+            "xdscale.dll",
+            "xdsmplui.dll",
+            "xdwmark.dll",
+        }; // "PSCRIPT.NTF" }; // TODO: update this
 
         #region Error messages for Trace/Debug
 
@@ -172,6 +196,9 @@ namespace VMPrintCore
             IntPtr hPrinter = IntPtr.Zero;
 
             //仮想プリンターが開ける場合、ポートをインストールするまたはアンインストールする
+            logEventSource.TraceEvent(TraceEventType.Verbose,
+                                      (int)TraceEventType.Verbose,
+                                      "Adding port in DoXcvDataPortOperation named: ,XcvMonitor " + portMonitor);
             if (NativeMethods.OpenPrinter(",XcvMonitor " + portMonitor, ref hPrinter, def) != 0)
             {
                 if (!portName.EndsWith("\0"))
@@ -188,6 +215,9 @@ namespace VMPrintCore
                 uint xcvResult; // Will receive de result here
 
                 NativeMethods.XcvData(hPrinter, xcvDataOperation, portPtr, size, IntPtr.Zero, 0, out needed, out xcvResult);
+                logEventSource.TraceEvent(TraceEventType.Verbose,
+                                          (int)TraceEventType.Verbose,
+                                          "XcvData returned: " + xcvResult);
 
                 NativeMethods.ClosePrinter(hPrinter);
                 Marshal.FreeHGlobal(portPtr);
@@ -482,7 +512,11 @@ namespace VMPrintCore
                                                          1024,
                                                          ref dirSizeInBytes))
                 throw new DirectoryNotFoundException(Properties.Resources.DRV_DIR_NOT_RETRIEVE);
+
             return driverDirectory.ToString();
+            //string path = Path.Combine(driverDirectory.ToString(), "VMPrint");
+            //Directory.CreateDirectory(path);
+            //return path;
         }
 
 
@@ -831,8 +865,17 @@ namespace VMPrintCore
                 printerDriverInfo.pszHardwareID = Properties.Resources.HARDWARE_ID;
                 printerDriverInfo.pszProvider = Properties.Resources.DRIVER_MANUFACTURER;
 
-
+                logEventSource.TraceEvent(TraceEventType.Verbose,
+                            (int)TraceEventType.Verbose,
+                            "driver in path: " + driverSourceDirectory);
                 vmPrintPrinterDriverInstalled = InstallPrinterDriver(ref printerDriverInfo);
+
+                if (!vmPrintPrinterDriverInstalled)
+                {
+                    logEventSource.TraceEvent(TraceEventType.Verbose,
+                                (int)TraceEventType.Verbose,
+                                "native add drive method returned: false");
+                }
             }
             else
             {
@@ -844,13 +887,9 @@ namespace VMPrintCore
 
         private bool InstallPrinterDriver(ref DRIVER_INFO_6 printerDriverInfo)
         {
-            bool printerDriverInstalled = false;
-
-            printerDriverInstalled = NativeMethods.AddPrinterDriver(null, 6, ref printerDriverInfo);
-            if (printerDriverInstalled == false)
+            bool printerDriverInstalled = NativeMethods.AddPrinterDriver(null, 6, ref printerDriverInfo);
+            if (!printerDriverInstalled)
             {
-                //int lastWinError = Marshal.GetLastWin32Error();
-                //throw new Win32Exception(Marshal.GetLastWin32Error(), "Could not add printer VM Print printer driver.");
                 logEventSource.TraceEvent(TraceEventType.Error,
                                           (int)TraceEventType.Error,
                                           Properties.Resources.VM_DRV_NOT_ADDED +
@@ -884,21 +923,21 @@ namespace VMPrintCore
             //ﾌﾟﾘﾝﾀｰを追加する
             bool printerAdded = false;
             PRINTER_INFO_2 vmPrintPrinter = new PRINTER_INFO_2();
-
             vmPrintPrinter.pServerName = null;
             vmPrintPrinter.pPrinterName = Properties.Resources.PRINTER_NAME;
             vmPrintPrinter.pPortName = PORTNAME;
             vmPrintPrinter.pDriverName = Properties.Resources.DRIVER_NAME;
-            vmPrintPrinter.pPrintProcessor = Properties.Resources.PRINT_PROCESOR;
+            //vmPrintPrinter.pPrintProcessor = Properties.Resources.PRINT_PROCESOR;
             vmPrintPrinter.pDatatype = "RAW";
-            vmPrintPrinter.Attributes = 0x00000002;
-            vmPrintPrinter.Attributes = PRINTER_ATTRIBUTE_DO_COMPLETE_FIRST;
+            vmPrintPrinter.Attributes = 0x00000040;
+            //vmPrintPrinter.Attributes = 0x00000002;
+            //vmPrintPrinter.Attributes = PRINTER_ATTRIBUTE_DO_COMPLETE_FIRST;
 
-            int vmPrintPrinterHandle = NativeMethods.AddPrinter(null, 2, ref vmPrintPrinter);
-            if (vmPrintPrinterHandle != 0)
+            IntPtr vmPrintPrinterHandle = NativeMethods.AddPrinter(null, 2, ref vmPrintPrinter);
+            if (vmPrintPrinterHandle != IntPtr.Zero)
             {
                 // Added ok
-                int closeCode = NativeMethods.ClosePrinter((IntPtr)vmPrintPrinterHandle);
+                int closeCode = NativeMethods.ClosePrinter(vmPrintPrinterHandle);
                 printerAdded = true;
             }
             else

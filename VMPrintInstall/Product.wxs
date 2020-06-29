@@ -4,8 +4,8 @@
 		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" 
              Platform="x64"
              InstallPrivileges="elevated" 
-             Description="VM Print"
-             Comments="VM Print 0.1 installation package"
+             Description="VM Print DEMO"
+             Comments="VM Print 0.2 installation package"
              Id="*" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
@@ -110,31 +110,87 @@
         <File Source="$(var.VMPrintCore.TargetDir)$(var.VMPrintCore.TargetName).pdb" KeyPath="yes" />
       </Component>
       <!-- Third party components -->
-      <Component Id="gsdll64dll" Guid="{34E30C39-B245-4C3A-8F31-E0F08488720E}">
-        <File Source="..\Lib\gsdll64.dll" KeyPath="yes" />
-      </Component>
       <Component Id="redmon64vmprintdll" Guid="{DBF6968A-A223-425F-B14C-E35A8BDC3C5C}">
         <File Source="..\Lib\redmon64vmprint.dll" KeyPath="yes" />
       </Component>
-      <Component Id="PS5UIDLL" Guid="{78CB5B07-C04A-43DF-BDC1-B250D7E1B657}">
-        <File Source="..\Lib\PS5UI.DLL" KeyPath="yes" />
+      <Component Id="ntprintinf" Guid="{a7a37148-037c-4db6-9c56-2eacc192df41}">
+        <File Source="..\Lib\ntprint.inf" KeyPath="yes" />
       </Component>
-      <Component Id="PSCRIPTHLP" Guid="{A9FF9E8D-5810-452D-A4AC-CF16023AD85B}">
-        <File Source="..\Lib\PSCRIPT.HLP" KeyPath="yes" />
+      <Component Id="UNIDRVDLL" Guid="{57cb8ee4-fcdb-4906-a74e-793b3063d772}">
+        <File Source="..\Lib\UNIDRV.DLL" KeyPath="yes" />
       </Component>
-      <Component Id="PSCRIPTNTF" Guid="{101DDCF1-D6D8-49DD-86C9-64AFEE45AE50}">
-        <File Source="..\Lib\PSCRIPT.NTF" KeyPath="yes" />
+      <Component Id="UNIDRVHLP" Guid="{07806629-e503-4480-9d1c-0e4c602fcf5d}">
+        <File Source="..\Lib\UNIDRV.HLP" KeyPath="yes" />
       </Component>
-      <Component Id="PSCRIPT5DLL" Guid="{1258C9F0-C105-4D1E-91C4-5D2F47EB0CB3}">
-        <File Source="..\Lib\PSCRIPT5.DLL" KeyPath="yes" />
+      <Component Id="UNIDRVUIDLL" Guid="{02691e06-7e00-4d1c-8b4f-4ac96213b842}">
+        <File Source="..\Lib\UNIDRVUI.DLL" KeyPath="yes" />
       </Component>
-      <Component Id="SCPDFPRNppd" Guid="{0B916245-EDD0-4346-9ED2-A850C56E66E6}">
-        <File Source="..\Lib\SCPDFPRN.ppd" KeyPath="yes" />
+      <Component Id="UNIRESDLL" Guid="{f6f63817-732d-47e4-9251-ec1bf9a83be9}">
+        <File Source="..\Lib\UNIRES.DLL" KeyPath="yes" />
       </Component>
-      <Component Id="PDFTOTEXTEXE" Guid="{043C0616-7CE9-4086-A383-618EB809EDF9}">
-        <File Source="..\Lib\pdftotext.exe" KeyPath="yes" />
+      <Component Id="xdbookgpd" Guid="{62e55ec6-6fe9-4a8d-b3e4-7142b2524f84}">
+        <File Source="..\Lib\xdbook.gpd" KeyPath="yes" />
       </Component>
-      <!-- </Component> -->
+      <Component Id="xdCMYKPrintericc" Guid="{19ceec72-ed45-4d7f-ad8d-b96a5e228cbb}">
+        <File Source="..\Lib\xdCMYKPrinter.icc" KeyPath="yes" />
+      </Component>
+      <Component Id="xdcolmangpd" Guid="{f501caae-145f-402f-8267-d8de76528540}">
+        <File Source="..\Lib\xdcolman.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="xdnamesgpd" Guid="{7b37a184-419b-46c1-bd3d-a48c371e0e6b}">
+        <File Source="..\Lib\xdnames.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="xdnupgpd" Guid="{5a88532b-248a-402e-a803-c7cde1523a64}">
+        <File Source="..\Lib\xdnup.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="xdpgsclgpd" Guid="{ea0bb58b-50db-4425-b58e-9ba3fff93fd4}">
+        <File Source="..\Lib\xdpgscl.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmplgpd" Guid="{3399ef3d-0bf9-45ff-a446-c740e5f5a42b}">
+        <File Source="..\Lib\xdsmpl.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="MSXPSINCPPD" Guid="{924f7915-6276-4613-aa10-ce1b5334b414}">
+        <File Source="..\Lib\MSXPSINC.PPD" KeyPath="yes" />
+      </Component>
+      <Component Id="MXDWDRVDLL" Guid="{7915924f-6276-4613-aa10-34b414ce1b53}">
+        <File Source="..\Lib\MXDWDRV.DLL" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmplinf" Guid="{e3ddf4cf-5212-4a75-a051-46f104f30c49}">
+        <File Source="..\Lib\xdsmpl.inf" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmplini" Guid="{cebe64f2-945c-4288-b0f9-7b35653f5b9e}">
+        <File Source="..\Lib\xdsmpl.ini" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmplPipelineConfigxml" Guid="{e9f053f4-fe60-490f-8336-900a48cb044c}">
+        <File Source="..\Lib\xdsmpl-PipelineConfig.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="xdwmarkgpd" Guid="{713efddf-f52b-43fb-b8a2-b22f5830c38a}">
+        <File Source="..\Lib\xdwmark.gpd" KeyPath="yes" />
+      </Component>
+      <Component Id="xdwscRGBicc" Guid="{100546eb-1f3c-4493-873d-81897fc7e8fe}">
+        <File Source="..\Lib\xdwscRGB.icc" KeyPath="yes" />
+      </Component>
+      <Component Id="xdbookdll" Guid="{e2bbc8c5-d45a-4260-899a-4147264da043}">
+        <File Source="..\Lib\xdbook.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="XDColMandll" Guid="{ffcb10c7-a697-4390-82fe-902675f7bbbc}">
+        <File Source="..\Lib\XDColMan.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdnupdll" Guid="{87539b32-7879-4048-afc2-78da7937a73b}">
+        <File Source="..\Lib\xdnup.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdscaledll" Guid="{79514ce3-595f-499a-9778-c6cfbf35ca55}">
+        <File Source="..\Lib\xdscale.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdsmpluidll" Guid="{482bbb8e-676d-4cb6-8785-5da33b8140c5}">
+        <File Source="..\Lib\xdsmplui.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="xdwmarkdll" Guid="{ebc211f2-16f5-4afd-8b52-d9b9287d9371}">
+        <File Source="..\Lib\xdwmark.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="PdfSharpdll" Guid="{212eb1fc-16f5-4afd-8b52-928d9b7d9371}">
+        <File Source="..\Lib\PdfSharp.dll" KeyPath="yes" />
+      </Component>
 		</ComponentGroup>
 
     <Component Id="ApplicationShortcutDesktop" Directory="DesktopFolder" Guid="4394E692-DC3A-414C-A371-96A5D2FA6AF6">

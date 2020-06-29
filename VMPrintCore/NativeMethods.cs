@@ -180,7 +180,7 @@ namespace VMPrintCore
 
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall, SetLastError = true)]
-        internal static extern int AddPrinter(string pName, uint Level, [In] ref PRINTER_INFO_2 pPrinter);
+        internal static extern IntPtr AddPrinter(string pName, uint Level, [In] ref PRINTER_INFO_2 pPrinter);
 
         [DllImport("winspool.drv", EntryPoint = "OpenPrinterA", SetLastError = true)]
         internal static extern int OpenPrinter(string pPrinterName,

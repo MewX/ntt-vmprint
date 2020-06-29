@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DRIVER_MANUFACTURER" xml:space="preserve">
-    <value>Frank Fan</value>
+    <value>Amos Xia</value>
   </data>
   <data name="DRIVER_NAME" xml:space="preserve">
     <value>VM Print Virtual Printer</value>
@@ -217,13 +217,13 @@
     <value>Could not delete port configuration from registry. Exception message: {0}</value>
   </data>
   <data name="VM_DRV_NOT_ADDED" xml:space="preserve">
-    <value>Could not add VM printer driver.</value>
+    <value>Could not add VM printer driver. </value>
   </data>
   <data name="VM_DRV_NOT_REMOVE" xml:space="preserve">
-    <value>Could not remove VM Print printer driver.</value>
+    <value>Could not remove VM Print printer driver. </value>
   </data>
   <data name="VM_NOT_ADDED" xml:space="preserve">
-    <value>Could not add VM printer.</value>
+    <value>Could not add VM printer. </value>
   </data>
   <data name="VM_NOT_DELETE" xml:space="preserve">
     <value>Could not delete VM virtual printer.</value>

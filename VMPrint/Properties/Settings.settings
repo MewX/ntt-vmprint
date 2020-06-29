@@ -21,7 +21,7 @@
       <Value Profile="(Default)">Microsoft Print to PDF</Value>
     </Setting>
     <Setting Name="Style" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D100310</Value>
+      <Value Profile="(Default)">D100310 Not working</Value>
     </Setting>
   </Settings>
 </SettingsFile>
