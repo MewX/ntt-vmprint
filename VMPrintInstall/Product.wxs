@@ -4,8 +4,8 @@
 		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" 
              Platform="x64"
              InstallPrivileges="elevated" 
-             Description="VM Print"
-             Comments="VM Print 0.1 installation package"
+             Description="VM Print DEMO"
+             Comments="VM Print 0.2 installation package"
              Id="*" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."

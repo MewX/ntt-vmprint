@@ -36,7 +36,6 @@
 
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using System;
 using System.IO;
 using System.Windows.Documents;
 using System.Windows.Forms;
