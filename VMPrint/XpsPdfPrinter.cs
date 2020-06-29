@@ -24,12 +24,12 @@
 /* ＜電話番号＞                     N/A                                      */
 /*--------------------------------------------------------------------------*/
 /* ＜設計者名＞                     Amos Xia                                 */
-/* ＜設計年月日＞                   2020年06月20日　　　　　                   */
+/* ＜設計年月日＞                   2020年06月27日　　　　　                   */
 /* ＜設計修正者名＞                                                          */
 /* ＜設計修正年月日及び修正ＩＤ＞                                              */
 /*--------------------------------------------------------------------------*/
 /* ＜ソース作成者名＞               Amos Xia                                  */
-/* ＜ソース作成年月日＞             2020年06月20日　　　　　                    */
+/* ＜ソース作成年月日＞             2020年06月7日　　　　　                    */
 /* ＜ソース修正者名＞                                                         */
 /* ＜ソース修正年月日及び修正ＩＤ＞                                            */
 /*--------------------------------------------------------------------------*/
@@ -52,15 +52,8 @@ namespace VMPrint
         /// </summary>
         public static void ConvertXpsToBitmapToPdf(string xpsFilePath, string finalPdfPath)
         {
-            MessageBox.Show("Before opening file: " + xpsFilePath, "XpsPDFPrinter",
-                             MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question);
-
             XpsDocument xps = new XpsDocument(xpsFilePath, FileAccess.Read);
             FixedDocumentSequence sequence = xps.GetFixedDocumentSequence();
-            MessageBox.Show("Opened file: " + xpsFilePath, "XpsPDFPrinter", 
-                             MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question);
 
             PdfDocument outputPdf = new PdfDocument();
             for (int pageCount = 0; pageCount < sequence.DocumentPaginator.PageCount; ++pageCount)
@@ -77,25 +70,21 @@ namespace VMPrint
                 XImage xImage = XImage.FromStream(stream);
                 xImage.Interpolate = false;
 
-                // TODO: Add watermark.
-                MessageBox.Show("Added page: " + (pageCount + 1), "XpsPDFPrinter", 
-                                 MessageBoxButtons.YesNo,
-                                 MessageBoxIcon.Question);
-
                 // New PDF page.
                 PdfPage newPdfPage = new PdfPage();
                 outputPdf.Pages.Add(newPdfPage);
                 XGraphics xgr = XGraphics.FromPdfPage(outputPdf.Pages[pageCount]);
                 xgr.DrawImage(xImage, 0, 0);
+
+                // Add watermark.
+                XFont font = new XFont("Courier", 12.0);
+                xgr.DrawString("Demo Pdf File Printer", font, XBrushes.Blue, 20, 20);
             }
 
             // Save final PDF.
-            MessageBox.Show("Will save file to: " + finalPdfPath, "XpsPDFPrinter",
-                             MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question);
             outputPdf.Save(finalPdfPath);
             outputPdf.Close();
-            MessageBox.Show("Done saving file to: " + finalPdfPath, "XpsPDFPrinter", 
+            MessageBox.Show("Saved PDF file to: " + finalPdfPath, "XpsPDFPrinter DEMO", 
                              MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question);
         }
@@ -114,14 +103,6 @@ namespace VMPrint
             //doc.Close();
             //package.Close();
             //var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-        }
-
-        /// <summary>
-        /// Clean up temporary files.
-        /// </summary>
-        private static void Cleanup(IntPtr gsInstancePtr)
-        {
-            // TODO
         }
     }
 }

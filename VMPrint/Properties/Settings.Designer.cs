@@ -133,7 +133,7 @@ namespace VMPrint.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D100310")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D100310 Not Working")]
         public string Style {
             get {
                 return ((string)(this["Style"]));

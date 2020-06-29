@@ -127,7 +127,6 @@
     <Compile Include="..\Common\VMPrintSharedAssemblyInfo.cs">
       <Link>VMPrintSharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="GhostScript64.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -181,10 +180,6 @@
   <ItemGroup>
     <None Include="Resources\pdf.ico" />
     <Resource Include="pdf.ico" />
-    <Content Include="..\Lib\gsdll64.dll">
-      <Link>gsdll64.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

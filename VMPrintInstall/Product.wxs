@@ -110,15 +110,8 @@
         <File Source="$(var.VMPrintCore.TargetDir)$(var.VMPrintCore.TargetName).pdb" KeyPath="yes" />
       </Component>
       <!-- Third party components -->
-      <!-- TODO: delete GS -->
-      <Component Id="gsdll64dll" Guid="{34E30C39-B245-4C3A-8F31-E0F08488720E}">
-        <File Source="..\Lib\gsdll64.dll" KeyPath="yes" />
-      </Component>
       <Component Id="redmon64vmprintdll" Guid="{DBF6968A-A223-425F-B14C-E35A8BDC3C5C}">
         <File Source="..\Lib\redmon64vmprint.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="PDFTOTEXTEXE" Guid="{043C0616-7CE9-4086-A383-618EB809EDF9}">
-        <File Source="..\Lib\pdftotext.exe" KeyPath="yes" />
       </Component>
       <Component Id="ntprintinf" Guid="{a7a37148-037c-4db6-9c56-2eacc192df41}">
         <File Source="..\Lib\ntprint.inf" KeyPath="yes" />
