@@ -195,6 +195,9 @@
       <Component Id="xdwmarkdll" Guid="{ebc211f2-16f5-4afd-8b52-d9b9287d9371}">
         <File Source="..\Lib\xdwmark.dll" KeyPath="yes" />
       </Component>
+      <Component Id="PdfSharpdll" Guid="{212eb1fc-16f5-4afd-8b52-928d9b7d9371}">
+        <File Source="..\Lib\PdfSharp.dll" KeyPath="yes" />
+      </Component>
 		</ComponentGroup>
 
     <Component Id="ApplicationShortcutDesktop" Directory="DesktopFolder" Guid="4394E692-DC3A-414C-A371-96A5D2FA6AF6">

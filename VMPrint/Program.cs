@@ -81,9 +81,14 @@ namespace VMPrint
                 // Only set absolute minimum parameters, let the postscript input
                 // dictate as much as possible
                 tempPdfFilename = Path.GetTempFileName();
+                MessageBox.Show("1: " + standardInputFilename, tempPdfFilename,
+                                 MessageBoxButtons.YesNo,
+                                 MessageBoxIcon.Question);
+
+                XpsPdfPrinter.ConvertXpsToBitmapToPdf(standardInputFilename, tempPdfFilename + ".pdf");
 
                 // TODO: remove this.
-                MessageBox.Show(standardInputFilename, tempPdfFilename,
+                MessageBox.Show("2: " + standardInputFilename, tempPdfFilename,
                                  MessageBoxButtons.YesNo,
                                  MessageBoxIcon.Question);
 
